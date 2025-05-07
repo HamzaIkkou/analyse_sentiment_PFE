@@ -1,0 +1,8 @@
+streamlit
+scikit-learn
+pandas
+numpy
+joblib
+git+https://github.com/BoseCorp/py-googletrans.git
+langdetect
+imbalanced-learn
