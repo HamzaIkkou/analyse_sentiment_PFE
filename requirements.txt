@@ -7,3 +7,5 @@ transformers
 langdetect
 imbalanced-learn
 sentencepiece
+torch
+tensorflow
