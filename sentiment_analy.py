@@ -1,24 +1,26 @@
+
+
 import streamlit as st
-from googletrans import Translator
+from transformers import pipeline
 import joblib
 import re
 
 # Load your trained model and vectorizer
-model = joblib.load("sentiment_analysis_model.joblib")       # Replace with your actual path
-vectorizer = joblib.load("tfidf_vectorizer.pkl")       # Replace with your actual path
+model = joblib.load("sentiment_analysis_model.joblib")
+vectorizer = joblib.load("tfidf_vectorizer.pkl")
 
-# Initialize translator
-translator = Translator()
+# Initialize Hugging Face translation pipeline
+translator = pipeline("translation", model="Helsinki-NLP/opus-mt-mul-en")
 
-# Text preprocessing (optional, adjust to your model’s needs)
+# Text preprocessing
 def preprocess(text):
-    text = re.sub(r'[^\w\s]', '', text.lower())  # lowercase and remove punctuation
+    text = re.sub(r'[^\w\s]', '', text.lower())
     return text
 
-# Translate to English and detect language
+# Translate to English
 def translate_to_english(text):
-    result = translator.translate(text, dest='en')
-    return result.text, result.src
+    translated = translator(text, max_length=512)[0]['translation_text']
+    return translated, "unknown"  # Hugging Face doesn't return detected source language
 
 # Streamlit UI
 st.title("🌍 Analyseur de Sentiment")
@@ -35,7 +37,6 @@ if user_input:
             sentiment = "😊 Positif" if prediction == 1 else "☹️ Négatif"
 
             st.subheader("🔍 Résultat de l'analyse")
-            st.write(f"**Langue détectée:** {detected_lang}")
             st.write(f"**Traduction du commentaire:** {translated_text}")
             st.write(f"**Sentiment :** {sentiment}")
 

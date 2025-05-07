@@ -3,6 +3,7 @@ scikit-learn
 pandas
 numpy
 joblib
-git+https://github.com/BoseCorp/py-googletrans.git
+transformers
 langdetect
 imbalanced-learn
+sentencepiece
