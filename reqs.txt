@@ -3,6 +3,6 @@ scikit-learn
 pandas
 numpy
 joblib
-googletrans==4.0.0rc1
+git+https://github.com/BoseCorp/py-googletrans.git
 langdetect
 imbalanced-learn
